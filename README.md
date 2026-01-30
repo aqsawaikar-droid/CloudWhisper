@@ -1,210 +1,231 @@
 # CloudWhisper
 
-This is an autonomous SRE assistant built using Next.js, Firebase, Google Cloud, and Vertex AI. It helps detect, analyze, and resolve production system issues through multimodal interaction (text, voice, and images).
+**An autonomous SRE assistant that detects, analyzes, and resolves production system issues through multimodal AI interaction.**
+
+Built for Open Innovation | Team SheBuilds
 
 ---
 
-## ✨ Features
+## The Problem
 
-- 🤖 **AI-Powered Analysis** - Uses Google's Gemini 1.5 Flash for intelligent issue analysis
-- 💬 **Multimodal Chat** - Interact via text, voice, or upload screenshots
-- 🔊 **Speech-to-Text** - Describe issues using your voice
-- 🖼️ **Image Analysis** - Upload error screenshots for AI analysis
-- 📝 **Conversation History** - Review past interactions
-- 🔐 **User Authentication** - Secure Firebase authentication
+Production system troubleshooting is complex and time-consuming. DevOps teams face three critical gaps:
+
+**Interaction Gap** - Engineers must navigate complex dashboards, memorize CLI commands, and manually interpret dense logs.
+
+**Monitoring Gap** - Traditional monitoring tools only alert humans but don't analyze root causes or suggest solutions.
+
+**Response Gap** - System failures require manual intervention by on-call engineers, increasing mean time to resolution and introducing human error.
 
 ---
 
-## 🚀 Quick Start
+## Our Solution
+
+CloudWhisper transforms how DevOps teams interact with production systems. Instead of juggling multiple tools and dashboards, engineers can simply:
+
+- **Describe issues in natural language** - "My API is giving 504 errors"
+- **Speak their problems** - Use voice commands for hands-free troubleshooting
+- **Upload error screenshots** - AI analyzes images to understand the context
+
+CloudWhisper uses Google's Gemini 1.5 Flash to intelligently analyze the problem, search through logs and metrics, identify root causes, and provide actionable recommendations.
+
+---
+
+## Key Features
+
+**AI-Powered Analysis**
+Uses Gemini 1.5 Flash to understand complex error patterns and provide intelligent diagnostics.
+
+**Multimodal Interaction**
+Supports text chat, voice commands, and image uploads for flexible communication.
+
+**Speech-to-Text**
+Describe production issues hands-free during incident response.
+
+**Image Analysis**
+Upload error screenshots for automatic OCR and AI interpretation.
+
+**Conversation History**
+Review past incidents and solutions to learn from previous troubleshooting sessions.
+
+**Secure Authentication**
+Firebase Authentication ensures secure access control.
+
+---
+
+## Technology Stack
+
+### Google Technologies
+
+- **Gemini 1.5 Flash** - Multimodal AI for intelligent analysis and decision-making
+- **Google Genkit AI** - AI application framework for orchestrating workflows
+- **Firebase Firestore** - Real-time database for conversations and audit logs
+- **Firebase Authentication** - Secure user management
+- **Cloud Vision API** - OCR and image analysis for error screenshots
+- **Speech-to-Text API** - Voice command processing
+
+### Additional Technologies
+
+- **Next.js 15** - Modern React framework with App Router
+- **React 19** - Latest React with improved performance
+- **TypeScript** - Full type safety across the application
+- **Tailwind CSS + shadcn/ui** - Modern, accessible UI components
+
+---
+
+## How It Works
+
+1. **User Input** - Engineers interact via text, voice, or images
+2. **AI Analysis** - Gemini processes the input and analyzes system context
+3. **Intelligent Diagnosis** - AI identifies patterns and determines root causes
+4. **Actionable Response** - Clear explanations and recommended solutions
+
+---
+
+## What Makes CloudWhisper Different
+
+**Multimodal AI First**
+Unlike text-only chatbots, CloudWhisper natively supports voice and image inputs, making it the first truly multimodal SRE assistant.
+
+**Production-Ready**
+This is a fully functional MVP deployed on Firebase with real authentication, database storage, and AI integration.
+
+**Context-Aware Intelligence**
+Gemini 1.5 Flash enables CloudWhisper to understand complex error scenarios and provide insights beyond simple pattern matching.
+
+**Built for DevOps**
+Designed specifically for incident response workflows with features like conversation history and multimodal input.
+
+---
+
+## Demo Scenarios
+
+**Scenario 1: Database Error Analysis**
+```
+User: "What do you mean by 500 errors?"
+
+CloudWhisper: Analyzes the error and explains that 500 errors 
+indicate internal server failures caused by database connection 
+termination. Provides details about the root cause from logs 
+showing "Database query failed: connection terminated unexpectedly".
+```
+
+**Scenario 2: API Timeout Investigation**
+```
+User: "My API is giving a 504 Gateway Timeout"
+
+CloudWhisper: Identifies that the primary database recently had 
+connections terminated by an administrator command, leading to 
+widespread query failures in the backend service. Explains the 
+connection between the database issue and API timeouts.
+```
+
+---
+
+## Setup & Installation
 
 ### Prerequisites
 
-- Node.js 20+ installed
-- Google AI API key ([Get one here](https://makersuite.google.com/app/apikey))
-- Firebase project (already configured in the codebase)
+- Node.js 20+
+- Google AI API key ([Get one here](https://aistudio.google.com/app/apikey))
+- Firebase project (already configured)
 
-### Setup Instructions
+### Quick Start
 
-1. **Clone and Install**
-   ```bash
-   cd /path/to/Whisper
-   npm install
-   ```
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd cloudwhisper
+```
 
-2. **Configure Environment Variables**
-   ```bash
-   # Copy the example environment file
-   cp .env.example .env.local
-   ```
+2. Install dependencies
+```bash
+npm install
+```
 
-3. **Add Your Google AI API Key**
-   
-   Open `.env.local` and replace the placeholder:
-   ```env
-   GOOGLE_API_KEY=your_actual_google_api_key_here
-   ```
-   
-   > **How to get an API key:**
-   > 1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
-   > 2. Sign in with your Google account
-   > 3. Click "Create API Key"
-   > 4. Copy the key and paste it in `.env.local`
+3. Configure environment variables
+```bash
+cp .env.example .env.local
+```
 
-4. **Start the Development Server**
-   ```bash
-   npm run dev
-   ```
+4. Add your Google AI API key to `.env.local`
+```env
+GOOGLE_API_KEY=your_api_key_here
+```
 
-5. **Open Your Browser**
-   
-   Navigate to [http://localhost:9002](http://localhost:9002)
+5. Start the development server
+```bash
+npm run dev
+```
+
+6. Open [`(https://cloudwhisper.vercel.app/)` in your browser
 
 ---
 
-## 🔧 Available Scripts
-
-- `npm run dev` - Start development server on port 9002 (with Turbopack)
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run typecheck` - Run TypeScript type checking
-- `npm run genkit:dev` - Start Genkit development UI
-- `npm run genkit:watch` - Start Genkit with watch mode
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-Whisper/
+cloudwhisper/
 ├── src/
-│   ├── ai/                  # AI flows and Genkit configuration
-│   │   ├── flows/          # Individual AI flows (analysis, speech-to-text, etc.)
-│   │   ├── genkit.ts       # Genkit AI setup
-│   │   └── dev.ts          # Development entry point
-│   ├── app/                # Next.js app router pages
-│   │   ├── chat/           # Chat interface
-│   │   ├── history/        # Conversation history
-│   │   ├── workflows/      # Saved workflows
-│   │   ├── login/          # Authentication
-│   │   └── signup/         # User registration
-│   ├── components/         # React components
-│   │   ├── ui/            # shadcn/ui components
-│   │   ├── dashboard.tsx  # Main chat dashboard
-│   │   └── app-header.tsx # Application header
-│   ├── firebase/          # Firebase configuration and utilities
-│   └── lib/              # Utility functions and types
-├── .env.local            # Local environment variables (gitignored)
-├── .env.example          # Environment variable template
-└── package.json          # Project dependencies
+│   ├── ai/                 # AI flows and Genkit configuration
+│   │   ├── flows/         # Analysis, speech-to-text, image OCR
+│   │   └── genkit.ts      # Genkit setup
+│   ├── app/               # Next.js pages
+│   │   ├── chat/          # Main chat interface
+│   │   ├── history/       # Conversation history
+│   │   ├── workflows/     # Workflow management
+│   │   └── login/         # Authentication
+│   ├── components/        # React components
+│   │   ├── ui/           # shadcn/ui components
+│   │   └── dashboard.tsx  # Main dashboard
+│   ├── firebase/          # Firebase configuration
+│   └── lib/              # Utilities and types
+└── package.json
 ```
 
 ---
 
-## 🔑 Environment Variables
+## Future Development
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `GOOGLE_API_KEY` | ✅ Yes | Google AI API key for Gemini access |
+### Phase 2
+- Advanced workflow builder for custom remediation actions
+- Role-based access control for team management
+- Slack and Microsoft Teams integration for alerts
+- Automated incident report generation
 
----
-
-## 🧪 Usage
-
-### 1. **Sign Up / Login**
-   - Navigate to the app
-   - Create an account or sign in
-   - You'll be redirected to the chat interface
-
-### 2. **Start a Conversation**
-   - Type a message describing your issue
-   - Or click the microphone icon to use voice input
-   - Or click the image icon to upload a screenshot
-
-### 3. **Get AI Assistance**
-   - CloudWhisper will analyze your input
-   - Ask clarifying questions if needed
-   - Provide recommendations and solutions
-
-### 4. **Review History**
-   - Access past conversations in the History page
-   - Resume previous conversations
-   - Review AI recommendations
+### Long-Term Vision
+- ML-powered anomaly detection and prediction
+- Multi-cloud support (AWS, Azure, GCP)
+- Collaborative troubleshooting sessions
+- Integration with Jira and PagerDuty
 
 ---
 
-## 🐛 Troubleshooting
+## Impact
 
-### "AI model could not process the request"
-- **Check your API key**: Ensure `GOOGLE_API_KEY` is set in `.env.local`
-- **Verify API key**: Test your key at [Google AI Studio](https://makersuite.google.com)
-- **Check quotas**: Ensure you haven't exceeded API rate limits
+CloudWhisper addresses a critical need in DevOps:
 
-### "Microphone Access Denied"
-- Allow microphone permissions in your browser settings
-- Try a different browser (Chrome, Edge, Firefox recommended)
+**Reduced MTTR** - AI-powered diagnostics cut mean time to resolution from hours to minutes
 
-### Build or Runtime Errors
-- Run `npm install` to ensure dependencies are installed
-- Run `npm run typecheck` to check for TypeScript errors
-- Check the browser console for detailed error messages
+**Lower Barrier to Entry** - Natural language and voice interfaces make cloud operations accessible to more engineers
 
-### Firebase Authentication Issues
-- Ensure you're using the correct Firebase configuration
-- Check that Firebase Authentication is enabled in your Firebase project
+**Better Incident Response** - Multimodal input allows for faster reporting during high-pressure situations
+
+**Knowledge Retention** - Conversation history helps teams learn from past incidents
 
 ---
 
-## 🌐 Browser Compatibility
+## Team
 
-- ✅ Chrome/Edge (latest)
-- ✅ Firefox (latest)
-- ✅ Safari (latest)
-
-**Note**: Voice recording requires browser support for MediaRecorder API.
+**Team Name:** SheBuilds  
+**Team Members:** Aqsa Waikar  , Isha Sonawane 
+**Problem Statement:** Open Innovation
 
 ---
 
-## 📚 Technologies Used
-
-- **Framework**: Next.js 15 with App Router
-- **AI**: Google Genkit AI + Gemini 1.5 Flash
-- **Database**: Firebase Firestore
-- **Authentication**: Firebase Auth
-- **UI**: React 19, Tailwind CSS, shadcn/ui
-- **TypeScript**: Full type safety
-
----
-
-## 🤝 Contributing
-
-This is a personal project. If you'd like to contribute:
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
----
-
-## 📄 License
+## License
 
 This project is private and proprietary.
 
 ---
 
-## 💡 Tips
-
-- Use specific error messages when asking for help (e.g., "Getting 403 error on Cloud Vision API")
-- Upload screenshots of errors for faster analysis
-- Use voice input for quick issue reporting
-- Check the History page to review past solutions
-
----
-
-## 🆘 Support
-
-For issues or questions:
-1. Check the Troubleshooting section above
-2. Review the [Google AI documentation](https://ai.google.dev/docs)
-3. Check the browser console for error messages
-
+Built with Google technologies for the hackathon

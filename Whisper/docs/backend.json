@@ -1,0 +1,134 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the SRE Assistant application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user (Firebase Auth UID)."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user.",
+          "format": "email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name."
+        }
+      },
+      "required": [
+        "id",
+        "email"
+      ]
+    },
+    "Conversation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Conversation",
+      "type": "object",
+      "description": "A single conversation session between a user and CloudWhisper.",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who owns this conversation."
+        },
+        "title": {
+          "type": "string",
+          "description": "A short, AI-generated title for the conversation."
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Timestamp indicating when the conversation started.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "startTime"
+      ]
+    },
+    "Message": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Message",
+      "type": "object",
+      "description": "A single message within a conversation.",
+      "properties": {
+        "sender": {
+          "type": "string",
+          "enum": ["user", "ai"],
+          "description": "Who sent the message."
+        },
+        "text": {
+          "type": "string",
+          "description": "The text content of the message."
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Unix timestamp of when the message was sent."
+        },
+        "imageUri": {
+          "type": "string",
+          "description": "Optional URI of an image attached to a user message."
+        },
+        "analysis": {
+          "type": "object",
+          "description": "Optional AI analysis result attached to an AI message."
+        }
+      },
+      "required": ["sender", "text", "timestamp"]
+    },
+     "Workflow": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Workflow",
+      "type": "object",
+      "description": "A remediation workflow saved by the user.",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who owns this workflow."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the workflow."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of what the workflow does."
+        },
+        "steps": {
+          "type": "string",
+          "description": "The steps or code for the workflow."
+        }
+      },
+      "required": ["userId", "name", "description", "steps"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profile information. The document ID is the Firebase Auth UID."
+    },
+    "/users/{userId}/conversations/{conversationId}": {
+       "schema": { "$ref": "#/entities/Conversation" },
+       "description": "Stores metadata for a user's conversations."
+    },
+    "/users/{userId}/conversations/{conversationId}/messages/{messageId}": {
+       "schema": { "$ref": "#/entities/Message" },
+       "description": "Stores all messages within a specific conversation."
+    },
+    "/users/{userId}/workflows/{workflowId}": {
+      "schema": { "$ref": "#/entities/Workflow" },
+      "description": "Stores workflows saved by the user."
+    }
+  }
+}
